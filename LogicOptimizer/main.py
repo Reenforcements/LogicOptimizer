@@ -11,6 +11,8 @@ parser = ArgumentParser(description="LogicOpt - The better logic optimizer.")
 parser.add_argument("-i", dest="inputFile", type=FileType('r'), action='store', required=True)
 parser.add_argument("-o", dest="outputFile", type=FileType('w'), default="./output.blif", action='store')
 parser.add_argument("-t", dest="runBLIFTests", help="Run the BLIF import/export tests.", action='store_const', default=False, const=True)
+parser.add_argument("-d", dest="showDebug", help="Show debug info.", action='store_const', default=False, const=True)
+parser.add_argument("-v", dest="verifyBLIF", help="Verify the optimized BLIF against the original.", action='store_const', default=False, const=True)
 
 args = parser.parse_args()
 
@@ -21,7 +23,7 @@ if args.runBLIFTests:
 # Optimization
 
 # Actually read in the blif
-blif = read_blif(args.inputFile, createTopLevelMerged=True)
+blif = read_blif(args.inputFile, createTopLevelMerged=True, debug=args.showDebug)
 
 for tt in blif.topLevelMerged:
     print("Performing optimization on {}".format(tt))
@@ -40,13 +42,15 @@ for tt in blif.topLevelMerged:
     primeImplicants = []
 
     while True:
-        print("Tabulating {} rows.".format(len(currentBatch)))
+        if args.showDebug:
+            print("Tabulating {} rows.".format(len(currentBatch)))
         tabulated = Minterm.organizeByNumberOfOnes(currentBatch)
 
-        print("Current batch: ")
-        for m in currentBatch:
-            print(m)
-        print("")
+        if args.showDebug:
+            print("Current batch: ")
+            for m in currentBatch:
+                print(m)
+            print("")
 
         usedTerms = []
         forNextRound = []
@@ -82,9 +86,9 @@ for tt in blif.topLevelMerged:
             for minterm in group:
                 #print("Adding leftover term: {}".format(minterm))
                 primeImplicants.append(minterm)
-
-        print("We found {} contestants who get to move on ({} left over as prime implicants).".format(
-            len(forNextRound), len(primeImplicants)))
+        if args.showDebug:
+            print("We found {} contestants who get to move on ({} left over as prime implicants).".format(
+               len(forNextRound), len(primeImplicants)))
 
         if len(forNextRound) == 0:
             # We don't have any for the next round.

@@ -83,12 +83,13 @@ def read_blif(f, createTopLevelMerged=True, debug=0):
             #print("tt output name: {}".format(tt.getOutputName()))
             #print("blif outputs: {}".format(blif.outputNames))
             if tt.getOutputName() in blif.outputNames:
-                print("Merging tt with output {}".format(tt.getOutputName()))
+                if debug:
+                    print("Merging tt with output {}".format(tt.getOutputName()))
                 tt.mergeChildren()
                 blif.topLevelMerged.append(tt)
 
     # Print debug info?
-    if debug == 1:
+    if debug:
         print("")
         print("Debug:")
         print("All")
@@ -211,3 +212,14 @@ def runBLIFTests():
             print("Failed with {} bits.".format(bits))
         else:
             print("Success with {} bits.".format(bits))
+
+
+# Verifies an optimized BLIF by expanding the don't-cares
+#  in the truth table and comparing it to the original.
+def verify_blif():
+    None
+
+
+
+
+

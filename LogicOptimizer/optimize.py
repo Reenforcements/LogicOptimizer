@@ -50,7 +50,7 @@ class Minterm:
         return self.row == other.row
 
     def __str__(self):
-        return "{}: {}".format(self.row, self.implements)
+        return "Term {} covers {}".format(self.row, self.implements)
 
     @staticmethod
     def toMintemrs(rows):
