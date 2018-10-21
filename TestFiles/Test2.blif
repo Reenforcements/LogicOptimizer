@@ -1,0 +1,16 @@
+.model Test1
+.inputs top^A~0 top^A~1 top^A~2 top^A~3
+.outputs top^C
+
+.names top^A~0 top^A~1 top^A~2 top^A~3 top^C
+0011 1
+1000 1
+1001 1
+1010 1
+1011 1
+1100 1
+1101 1
+1110 1
+1111 1
+
+.end
