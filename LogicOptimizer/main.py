@@ -3,6 +3,7 @@ import math
 import random
 import sys
 from blif import *
+from optimize import *
 
 # Get input/output files
 parser = ArgumentParser(description="LogicOpt - The better logic optimizer.")
@@ -13,150 +14,11 @@ parser.add_argument("-t", dest="runBLIFTests", help="Run the BLIF import/export 
 
 args = parser.parse_args()
 
-
-
 # Should we test the BLIF importer/exporter?
 if args.runBLIFTests:
-    for bits in range(2, 28):
-        mintermCount = bits * 2
-        print("Testing export/import with {} bit input and {} minterms.".format(bits, mintermCount))
-
-        originalBlif = BLIF()
-        originalBlif.modelName = "Model{}Bit".format(bits)
-        originalBlif.inputNames = ["inp{}".format(i) for i in range(0,bits)]
-        originalBlif.outputNames = ["out1"]
-
-        truthTableRows = []
-        usedTerms = []
-        m = 0
-        while m < mintermCount:
-            # Generate a minterm
-            minterm = []
-            # Get random inputs
-            mintermBits = random.randrange(0, (1<<bits))
-
-            # Skip if we did it already
-            if mintermBits in usedTerms:
-                continue
-
-            # Convert each bit to a string
-            for i in range(0, bits):
-                if (mintermBits & (1 << i)) > 0:
-                    minterm.append("1")
-                else:
-                    minterm.append("0")
-
-            usedTerms.append(mintermBits)
-            truthTableRows.append([minterm, "1"])
-            m += 1
-
-        names = list(originalBlif.inputNames)
-        names.append(originalBlif.outputNames[0])
-        tt = TruthTable(names, truthTableRows, blif=originalBlif)
-        originalBlif.ttLookup[tt.getOutputName()] = tt
-        #print(tt)
-        #print(tt.ttString())
-
-        print("Writing out...")
-        testOutName = "./test{}minterms.blif".format(bits)
-        with open(testOutName, "w") as f:
-            write_blif(originalBlif, f)
-
-        print("Reading in...")
-        rereadBlif = None
-        with open(testOutName, "r") as f:
-            rereadBlif = read_blif(f, createTopLevelMerged=False)
-
-        if blifs_equal(originalBlif, rereadBlif) is not True:
-            print("Error, blifs not equal. The exporter/importer isn't working!")
-            print("Failed with {} bits.".format(bits))
-
-        print("Success with {} bits.".format(bits))
-
+    runBLIFTests()
 
 # Optimization
-
-class Minterm:
-    def __init__(self, row=None):
-        if row is not None:
-            self.row = row
-            self.implements = []
-            self.implements.append(0xFFFFFFFF & int("".join(row), 2) )
-        else:
-            self.implements = []
-            self.row = []
-
-    def star(self, m1):
-        row0 = self.row
-        row1 = m1.row
-
-        diff = 0
-        new = []
-        for i, b0 in enumerate(row0):
-            b1 = row1[i]
-            if b0 != b1:
-                diff += 1
-                if diff > 1:
-                    return None
-                new.append("-")
-            else:
-                new.append(b0)
-
-        if diff == 0:
-            return None
-
-        m = Minterm()
-        m.row = new
-        m.implements.extend(self.implements)
-        m.implements.extend(m1.implements)
-        m.implements.sort()
-
-        return m
-
-    #   Counts the number of 1's in a minterm
-    def countOnes(self):
-        count = 0
-        for m in self.row:
-            if m is "1":
-                count += 1
-        return count
-
-    def __eq__(self, other):
-        return self.row == other.row
-
-    def __str__(self):
-        return "{}: {}".format(self.row, self.implements)
-
-    @staticmethod
-    def toMintemrs(rows):
-        out = []
-        for row in rows:
-            out.append(Minterm(row))
-
-        return out
-
-    @staticmethod
-    def organizeByNumberOfOnes(arrayOfMinterms):
-        if arrayOfMinterms is None or len(arrayOfMinterms) == 0:
-            raise Exception("organizeByNumberOfOnes - arrayOfMinterms is None or empty")
-
-        # How many bits are we working with?
-        bits = len(arrayOfMinterms[0].row)
-        # Make a list to hold each group of minterms
-        currentNumberOfOnes = 0
-        maxNumberOfOnes = (max(arrayOfMinterms, key=lambda m: m.countOnes())).countOnes()
-        mintermsByNumberOfOnes = []
-        # Pre allocate lists so I don't get out of bounds errors
-        for x in range(0, maxNumberOfOnes + 1):
-            mintermsByNumberOfOnes.append([])
-
-        # Populate the "table"
-        for minterm in arrayOfMinterms:
-            c = minterm.countOnes()
-            mintermsByNumberOfOnes[c].append(minterm)
-
-        return mintermsByNumberOfOnes
-
 
 # Actually read in the blif
 blif = read_blif(args.inputFile, createTopLevelMerged=True)

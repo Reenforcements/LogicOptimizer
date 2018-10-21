@@ -157,6 +157,9 @@ class TruthTable:
     def __str__(self):
         return "TruthTable {} names and {} table lines.".format(len(self.names), len(self.ttInputs_zeros) + len(self.ttInputs_ones))
 
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def __eq__(self, other):
         if len(self.names) != len(other.names):
             return False

@@ -1,0 +1,19 @@
+.model Model6Bit
+.inputs inp0 inp1 inp2 inp3 inp4 inp5 
+.outputs out1
+
+.names inp0 inp1 inp2 inp3 inp4 inp5 out1
+000011 1
+000111 1
+001111 1
+010011 1
+010110 1
+100011 1
+100111 1
+101111 1
+110010 1
+110101 1
+110110 1
+111010 1
+
+.end

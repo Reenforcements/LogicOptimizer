@@ -1,0 +1,11 @@
+.model Model2Bit
+.inputs inp0 inp1 
+.outputs out1
+
+.names inp0 inp1 out1
+00 1
+01 1
+10 1
+11 1
+
+.end

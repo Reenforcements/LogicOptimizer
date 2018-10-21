@@ -1,4 +1,4 @@
-
+import random
 from TruthTable import TruthTable
 
 # Removes ".name" in front of a line
@@ -153,3 +153,61 @@ def blifs_equal(blif0, blif1):
             return False
 
     return True
+
+# Should we test the BLIF importer/exporter?
+def runBLIFTests():
+    for bits in range(2, 28):
+        mintermCount = bits * 2
+        print("Testing export/import with {} bit input and {} minterms.".format(bits, mintermCount))
+
+        originalBlif = BLIF()
+        originalBlif.modelName = "Model{}Bit".format(bits)
+        originalBlif.inputNames = ["inp{}".format(i) for i in range(0,bits)]
+        originalBlif.outputNames = ["out1"]
+
+        truthTableRows = []
+        usedTerms = []
+        m = 0
+        while m < mintermCount:
+            # Generate a minterm
+            minterm = []
+            # Get random inputs
+            mintermBits = random.randrange(0, (1<<bits))
+
+            # Skip if we did it already
+            if mintermBits in usedTerms:
+                continue
+
+            # Convert each bit to a string
+            for i in range(0, bits):
+                if (mintermBits & (1 << i)) > 0:
+                    minterm.append("1")
+                else:
+                    minterm.append("0")
+
+            usedTerms.append(mintermBits)
+            truthTableRows.append([minterm, "1"])
+            m += 1
+
+        names = list(originalBlif.inputNames)
+        names.append(originalBlif.outputNames[0])
+        tt = TruthTable(names, truthTableRows, blif=originalBlif)
+        originalBlif.ttLookup[tt.getOutputName()] = tt
+        #print(tt)
+        #print(tt.ttString())
+
+        print("Writing out...")
+        testOutName = "./test{}minterms.blif".format(bits)
+        with open(testOutName, "w") as f:
+            write_blif(originalBlif, f)
+
+        print("Reading in...")
+        rereadBlif = None
+        with open(testOutName, "r") as f:
+            rereadBlif = read_blif(f, createTopLevelMerged=False)
+
+        if blifs_equal(originalBlif, rereadBlif) is not True:
+            print("Error, blifs not equal. The exporter/importer isn't working!")
+            print("Failed with {} bits.".format(bits))
+        else:
+            print("Success with {} bits.".format(bits))
