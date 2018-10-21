@@ -25,6 +25,9 @@ if args.runBLIFTests:
 # Actually read in the blif
 blif = read_blif(args.inputFile, createTopLevelMerged=True, debug=args.showDebug)
 
+# Clear the old tt rows
+blif.ttLookup = {}
+
 for tt in blif.topLevelMerged:
     print("Performing optimization on {}".format(tt))
     print(tt.ttString())
@@ -101,16 +104,17 @@ for tt in blif.topLevelMerged:
     for prime in primeImplicants:
         print(prime)
 
-    # print("Coverage map:")
-    # coverageMap = {}
-    # for prime in primeImplicants:
-    #     for i in prime.implements:
-    #         if i not in coverageMap:
-    #             coverageMap[i] = []
-    #         coverageMap[i].append(prime)
-    #
-    # for k in coverageMap:
-    #     print("{} is covered by {}".format(k, len(coverageMap[k])))
+    if args.showDebug:
+        print("Coverage map:")
+        coverageMap = {}
+        for prime in primeImplicants:
+            for i in prime.implements:
+                if i not in coverageMap:
+                    coverageMap[i] = []
+                coverageMap[i].append(prime)
+
+        for k in coverageMap:
+            print("{} is covered by {}".format(k, len(coverageMap[k])))
 
 
     chosenPrimeImplicants = []
@@ -135,9 +139,28 @@ for tt in blif.topLevelMerged:
         if mintermNum is not None:
             raise Exception("Couldn't find a prime implicant to cover minterm {}.".format(mintermNum))
 
-
+    print("")
     print("Found a combination of {}/{} prime implicants that covers everything.".format(len(chosenPrimeImplicants), len(primeImplicants)))
+
     for p in chosenPrimeImplicants:
         print(p)
+
+    # Create a replacement truth table
+    primeTT = TruthTable(tt.names, Minterm.getRowsFromMinterms(chosenPrimeImplicants), blif=blif)
+
+    # Replace the inputs with the new prime implicants
+    blif.ttLookup[tt.getOutputName()] = primeTT
+
+print("")
+
+if args.verifyBLIF:
+    print("Verifying that optimized BLIF implements same logic...")
+    mergeAllIntoTopLevel(blif)
+    originalBlif = read_blif(args.inputFile, createTopLevelMerged=True, debug=args.showDebug)
+
+    if blifs_equal(originalBlif, blif) is not True:
+        print("Error, blifs not equal. The logic optimizer failed.")
+    else:
+        print("The logic-optimized BLIF is identical to the original when expanded!")
 
 

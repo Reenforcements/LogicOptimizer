@@ -81,3 +81,9 @@ class Minterm:
             mintermsByNumberOfOnes[c].append(minterm)
 
         return mintermsByNumberOfOnes
+    @staticmethod
+    def getRowsFromMinterms(minterms):
+        rows = []
+        for m in minterms:
+            rows.append([m.row, "1"])
+        return rows

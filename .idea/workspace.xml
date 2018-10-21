@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="273f6634-61bb-4ce1-bf07-8f51acbdf002" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LogicOptimizer/blif.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicOptimizer/blif.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LogicOptimizer/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/LogicOptimizer/main.py" afterDir="false" />
@@ -15,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/LogicOptimizerProject$main.coverage" NAME="main Coverage Results" MODIFIED="1540150619390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LogicOptimizer" />
+    <SUITE FILE_PATH="coverage/LogicOptimizerProject$main.coverage" NAME="main Coverage Results" MODIFIED="1540152489940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/LogicOptimizer" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1353625572">
@@ -39,12 +38,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="672" />
+          <entry key="py" value="1848" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="672" />
+          <entry key="Python" value="1848" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -53,11 +52,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LogicOptimizer/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
+            <state relative-caret-position="326">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -65,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LogicOptimizer/optimize.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+            <state relative-caret-position="457">
+              <caret line="86" column="26" lean-forward="true" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -77,8 +76,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LogicOptimizer/TruthTable.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="169" selection-start-line="169" selection-end-line="169" />
+            <state relative-caret-position="706">
+              <caret line="82" column="29" lean-forward="true" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
               <folding>
                 <marker date="1540149857681" expanded="true" signature="6673:6678" ph="..." />
               </folding>
@@ -89,13 +88,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/LogicOptimizer/blif.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1622">
-              <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+            <state relative-caret-position="396">
+              <caret line="41" column="37" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1540150537254" expanded="true" signature="6917:6918" ph="..." />
-                <marker date="1540150537254" expanded="true" signature="6917:6929" ph="..." />
-                <marker date="1540150537254" expanded="true" signature="6917:6932" ph="..." />
+                <marker date="1540152487392" expanded="true" signature="1489:1492" ph="..." />
+                <marker date="1540152487392" expanded="true" signature="7117:7118" ph="..." />
+                <marker date="1540152487392" expanded="true" signature="7117:7129" ph="..." />
+                <marker date="1540152487392" expanded="true" signature="7117:7132" ph="..." />
               </folding>
             </state>
           </provider>
@@ -118,6 +118,11 @@
       <find>getNames</find>
       <find>math</find>
       <find>read_blif</find>
+      <find>12</find>
+      <find>getOutput</find>
+      <find>createTopLevelMerged</find>
+      <find>TruthTable(</find>
+      <find>TRuthTable(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -128,9 +133,9 @@
       <list>
         <option value="$PROJECT_DIR$/LogicOptimizer/__init__.py" />
         <option value="$PROJECT_DIR$/LogicOptimizer/TruthTable.py" />
-        <option value="$PROJECT_DIR$/LogicOptimizer/blif.py" />
-        <option value="$PROJECT_DIR$/LogicOptimizer/main.py" />
         <option value="$PROJECT_DIR$/LogicOptimizer/optimize.py" />
+        <option value="$PROJECT_DIR$/LogicOptimizer/main.py" />
+        <option value="$PROJECT_DIR$/LogicOptimizer/blif.py" />
       </list>
     </option>
   </component>
@@ -203,7 +208,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/LogicOptimizer/main.py" />
-      <option name="PARAMETERS" value="-i ../TestFiles/Test2.blif -o ../TestOut/Test2Out.blif" />
+      <option name="PARAMETERS" value="-i ../TestFiles/Test1.blif -o ../TestOut/Test1Out.blif -v" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -258,6 +263,17 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/LogicOptimizer/main.py</url>
+          <line>160</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/LogicOptimizer/test3minterms.blif">
       <provider selected="true" editor-type-id="text-editor" />
@@ -271,20 +287,17 @@
     <entry file="file://$PROJECT_DIR$/LogicOptimizer/output.blif">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/LogicOptimizer/main.py">
+    <entry file="file://$PROJECT_DIR$/LogicOptimizer/optimize.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="133" lean-forward="true" selection-start-line="133" selection-end-line="133" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="457">
+          <caret line="86" column="26" lean-forward="true" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/LogicOptimizer/TruthTable.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="169" selection-start-line="169" selection-end-line="169" />
+        <state relative-caret-position="706">
+          <caret line="82" column="29" lean-forward="true" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
           <folding>
             <marker date="1540149857681" expanded="true" signature="6673:6678" ph="..." />
           </folding>
@@ -293,21 +306,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LogicOptimizer/blif.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1622">
-          <caret line="8" column="33" lean-forward="true" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        <state relative-caret-position="396">
+          <caret line="41" column="37" selection-start-line="41" selection-start-column="37" selection-end-line="41" selection-end-column="37" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <marker date="1540150537254" expanded="true" signature="6917:6918" ph="..." />
-            <marker date="1540150537254" expanded="true" signature="6917:6929" ph="..." />
-            <marker date="1540150537254" expanded="true" signature="6917:6932" ph="..." />
+            <marker date="1540152487392" expanded="true" signature="1489:1492" ph="..." />
+            <marker date="1540152487392" expanded="true" signature="7117:7118" ph="..." />
+            <marker date="1540152487392" expanded="true" signature="7117:7129" ph="..." />
+            <marker date="1540152487392" expanded="true" signature="7117:7132" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LogicOptimizer/optimize.py">
+    <entry file="file://$PROJECT_DIR$/LogicOptimizer/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="52" column="33" lean-forward="true" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="33" />
+        <state relative-caret-position="326">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

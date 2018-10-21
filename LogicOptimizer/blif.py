@@ -17,8 +17,39 @@ class BLIF:
         self.ttLookup = {}
         self.topLevelMerged = None
 
+def mergeAllIntoTopLevel(blif, debug=False):
+    # Expand the don't care cases of each truth table
+    for tt in blif.ttLookup.values():
+        tt.eliminateDontCares()
+
+    # Exhaust the list of outputs (for zeros)
+    for tt in blif.ttLookup.values():
+        tt.exhaustOutputs()
+
+    # Merge truth tables to make one big truth table
+    blif.topLevelMerged = []
+    for tt in blif.ttLookup.values():
+        # Only collapse the truth tables that are at the very highest level
+        # e.g. their output is a top level output
+        # print("tt output name: {}".format(tt.getOutputName()))
+        # print("blif outputs: {}".format(blif.outputNames))
+        if tt.getOutputName() in blif.outputNames:
+            if debug:
+                print("Merging tt with output {}".format(tt.getOutputName()))
+            tt.mergeChildren()
+            blif.topLevelMerged.append(tt)
+
+    # Replace all the TT's with the top level one(s)
+    blif.ttLookup = {}
+    for tt in blif.topLevelMerged:
+        blif.ttLookup[tt.getOutputName()] = tt
+
+
+
+
 # Reads a blif file and returns a single, collapsed TruthTable object.
 def read_blif(f, createTopLevelMerged=True, debug=0):
+    f.seek(0)
 
     # Cheap-o way to make a generic object.
     blif = BLIF()
@@ -67,26 +98,7 @@ def read_blif(f, createTopLevelMerged=True, debug=0):
 
     blif.topLevelMerged = None
     if createTopLevelMerged is True:
-        # Expand the don't care cases of each truth table
-        for tt in blif.ttLookup.values():
-            tt.eliminateDontCares()
-
-        # Exhaust the list of outputs (for zeros)
-        for tt in blif.ttLookup.values():
-            tt.exhaustOutputs()
-
-        # Merge truth tables to make one big truth table
-        blif.topLevelMerged = []
-        for tt in blif.ttLookup.values():
-            # Only collapse the truth tables that are at the very highest level
-            # e.g. their output is a top level output
-            #print("tt output name: {}".format(tt.getOutputName()))
-            #print("blif outputs: {}".format(blif.outputNames))
-            if tt.getOutputName() in blif.outputNames:
-                if debug:
-                    print("Merging tt with output {}".format(tt.getOutputName()))
-                tt.mergeChildren()
-                blif.topLevelMerged.append(tt)
+        mergeAllIntoTopLevel(blif, debug=debug)
 
     # Print debug info?
     if debug:
