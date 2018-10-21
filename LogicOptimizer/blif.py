@@ -142,11 +142,7 @@ def write_blif(blif, f):
     f.write("\n\n")
 
     # Write truth tables.
-    toExport = None
-    if blif.topLevelMerged is not None:
-        toExport = blif.topLevelMerged
-    else:
-        toExport = blif.ttLookup.values()
+    toExport = blif.ttLookup.values()
 
     for tt in toExport:
         f.write(".names ")

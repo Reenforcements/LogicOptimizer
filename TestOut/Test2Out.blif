@@ -1,0 +1,9 @@
+.model Test1
+.inputs top^A~0 top^A~1 top^A~2 top^A~3 
+.outputs top^C
+
+.names top^A~0 top^A~1 top^A~2 top^A~3 top^C
+-011 1
+1--- 1
+
+.end
