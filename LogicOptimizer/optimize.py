@@ -89,9 +89,11 @@ class Minterm:
 
 def optimzieBLIF(blif, debug=False):
     # Clear the old tt rows
+    origTTLookup = blif.ttLookup
     blif.ttLookup = {}
 
-    for tt in blif.topLevelMerged:
+    for key in origTTLookup:
+        tt = origTTLookup[key]
         print("Performing optimization on {}".format(tt))
         print(tt.ttString())
 

@@ -48,7 +48,8 @@ class TruthTable:
                             newRows.append(c1)
                     else:
                         # Term has no don't-cares
-                        newRows.append(row)
+                        if row not in newRows:
+                            newRows.append(row)
 
                 if currentRows == newRows:
                     break

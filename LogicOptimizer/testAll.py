@@ -24,7 +24,11 @@ print("Console output from each test is \"<TestBlifName>.txt\"")
 print("")
 
 for testFile in os.listdir("../TestFiles"):
+    if testFile.endswith(".v"):
+        continue
+
     testFilePath = "../TestFiles/" + testFile
+
     print("Optimizing BLIF file: {}".format(testFilePath))
     passed = runTestWithBlifAtPath(testFilePath)
 

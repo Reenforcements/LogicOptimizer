@@ -17,8 +17,6 @@ args = parser.parse_args()
 if args.runBLIFTests:
     runBLIFTests()
 
-# Optimization
-
 # Actually read in the blif
 blif = read_blif(args.inputFile, createTopLevelMerged=True, debug=args.showDebug)
 
@@ -37,6 +35,8 @@ if args.verifyBLIF:
 
     if blifs_equal(originalBlif, blif) is not True:
         print("Error, blifs not equal. The logic optimizer failed.")
+        print(blif.bigString())
+        print(originalBlif.bigString())
     else:
         print("The logic-optimized BLIF is identical to the original when expanded!")
 

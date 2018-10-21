@@ -17,14 +17,25 @@ class BLIF:
         self.ttLookup = {}
         self.topLevelMerged = None
 
+    def bigString(self):
+        s = []
+
+        for tt in self.ttLookup.values():
+            s.append(tt.ttString())
+            s.append("\n")
+
+        return "".join(s)
+
+
 def mergeAllIntoTopLevel(blif, debug=False):
     # Expand the don't care cases of each truth table
     for tt in blif.ttLookup.values():
         tt.eliminateDontCares()
 
     # Exhaust the list of outputs (for zeros)
-    for tt in blif.ttLookup.values():
-        tt.exhaustOutputs()
+    if len(blif.ttLookup.values()) > 1:
+        for tt in blif.ttLookup.values():
+          tt.exhaustOutputs()
 
     # Merge truth tables to make one big truth table
     blif.topLevelMerged = []
@@ -61,7 +72,18 @@ def read_blif(f, createTopLevelMerged=True, debug=0):
     truthTableRows = []
 
     # Read the blif file and create truth table objects
+    previousLine = ""
     for line in f:
+        # Account for lines being split with backslashes
+        line = line.strip()
+        if line.endswith("\\"):
+            line = line[0:-1]
+            previousLine = previousLine + line
+            continue
+        else:
+            line = previousLine + line
+            previousLine = ""
+
         if line.startswith(".name"):
             names = getNames(line)
             if len(names) is 1:
@@ -97,8 +119,11 @@ def read_blif(f, createTopLevelMerged=True, debug=0):
             truthTableRows.append( [ttInputs, ttOutput] )
 
     blif.topLevelMerged = None
-    if createTopLevelMerged is True:
+    # Calculating the logical complement does NOT work for large
+    #  numbers of bits.
+    if createTopLevelMerged is True and len(blif.inputNames) <= 8:
         mergeAllIntoTopLevel(blif, debug=debug)
+
 
     # Print debug info?
     if debug:
@@ -222,10 +247,6 @@ def runBLIFTests():
             print("Success with {} bits.".format(bits))
 
 
-# Verifies an optimized BLIF by expanding the don't-cares
-#  in the truth table and comparing it to the original.
-def verify_blif():
-    None
 
 
 
