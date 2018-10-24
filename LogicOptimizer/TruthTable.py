@@ -166,8 +166,8 @@ class TruthTable:
             return False
         if len(self.ttInputs_ones) != len(other.ttInputs_ones):
             return False
-        if len(self.ttInputs_zeros) != len(other.ttInputs_zeros):
-            return False
+        #if len(self.ttInputs_zeros) != len(other.ttInputs_zeros):
+        #    return False
 
         self.ttInputs_ones.sort()
         other.ttInputs_ones.sort()

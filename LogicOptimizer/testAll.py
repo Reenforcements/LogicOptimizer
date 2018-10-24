@@ -24,7 +24,7 @@ print("Console output from each test is \"<TestBlifName>.txt\"")
 print("")
 
 for testFile in os.listdir("../TestFiles"):
-    if testFile.endswith(".v"):
+    if testFile.endswith(".v") or testFile.startswith("."):
         continue
 
     testFilePath = "../TestFiles/" + testFile

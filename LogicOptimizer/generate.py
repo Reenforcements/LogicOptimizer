@@ -1,9 +1,9 @@
 import random
 
-filename = "../TestFiles/large2.blif"
-width = 27
-rowCount = 200
-p1 = 0.99
+filename = "../TestFiles/medium2.blif"
+width = 16
+rowCount = 750
+p1 = 0.8
 
 with open(filename, "w") as f:
     f.write(".model GenericName")
