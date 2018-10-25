@@ -112,7 +112,9 @@ def optimzieBLIF(blif, debug=False):
         while True:
             if debug:
                 print("Tabulating {} rows.".format(len(currentBatch)))
+
             tabulated = Minterm.organizeByNumberOfOnes(currentBatch)
+            print("Starring {} terms.".format(len(currentBatch)))
 
             if debug:
                 print("Current batch: ")

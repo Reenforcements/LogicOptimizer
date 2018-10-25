@@ -35,7 +35,7 @@ def mergeAllIntoTopLevel(blif, debug=False):
     # Exhaust the list of outputs (for zeros)
     if len(blif.ttLookup.values()) > 1:
         for tt in blif.ttLookup.values():
-          tt.exhaustOutputs()
+            tt.exhaustOutputs()
 
     # Merge truth tables to make one big truth table
     blif.topLevelMerged = []
